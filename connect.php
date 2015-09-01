@@ -9,6 +9,7 @@
 		'consumer_key' => $consumer_key, 
 		'redirect_uri' => $redirect_uri
 	);
+	$query = http_build_query($data);
 	$options = array(
     		'http' => array(
 		        'header' => "Connection: close\r\n".
