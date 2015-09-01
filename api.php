@@ -10,11 +10,15 @@
 		'consumer_key' => $consumer_key, 
 		'access_token' => $access_token
 	);
+	$query = http_build_query($data);
 	$options = array(
-		'http' => array(
-			'method'  => 'POST',
-			'content' => http_build_query($data)
-		)
+    	'http' => array(
+	        'header' => "Connection: close\r\n".
+	                        "Content-Type: application/x-www-form-urlencoded\r\n".
+	                        "Content-Length: ".strlen($query)."\r\n",
+	        'method'  => "POST",
+	        'content' => $query,
+    	)
 	);
 	$context  = stream_context_create($options);
 	$result = file_get_contents($url, false, $context);
